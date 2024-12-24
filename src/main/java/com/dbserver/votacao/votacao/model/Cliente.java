@@ -21,7 +21,7 @@ public class Cliente implements Serializable {
     @Column(name = "cliente_id")
     private UUID idCliente;
 
-    @Column(name = "cpf", length = 11, nullable = false)
+    @Column(name = "cpf", length = 14, nullable = false)
     private String cpf;
 
     @Column(name = "nome_cliente", length = 40, nullable = false)

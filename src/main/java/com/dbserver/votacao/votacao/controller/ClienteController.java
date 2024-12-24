@@ -17,14 +17,6 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    /*
-    @Autowired
-    private ClienteRepository clienteRepository;
-
-    @Autowired
-    private ValidacaoCpf validacaoCpf;
-     */
-
     @ResponseBody
     @PostMapping("/clientes")
     public ResponseEntity<Cliente> salvaCliente(@RequestBody @Valid Cliente cliente) throws Exception {
