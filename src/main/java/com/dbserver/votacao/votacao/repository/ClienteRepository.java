@@ -10,7 +10,7 @@ import java.util.UUID;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
    /*
-    @Query(value = "SELECT c FROM db_votacao.tbl_clientes c WHERE c.cpf = ?1")
+    @Query(value = "SELECT c FROM tbl_clientes c WHERE c.cpf = ?")
     public Cliente existeCadastroCpf(String cpf);
 
     */

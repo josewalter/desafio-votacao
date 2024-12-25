@@ -19,12 +19,14 @@ public class ClienteService {
         for (int i = 0; i < cliente.getCpf().length(); i++) {
             try {
                 cliente.getCpf().getBytes(String.valueOf(i)).toString();
+                cliente.getNomeCliente().toString();
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
             cliente.getNomeCliente().chars().toString();
         }
-       */
+         */
+
         clienteRepository.save(cliente);
         System.out.println("O cliente" + cliente + ", foi salva com sucesso!!");
         return cliente;
