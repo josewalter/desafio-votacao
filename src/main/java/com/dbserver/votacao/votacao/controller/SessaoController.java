@@ -20,8 +20,8 @@ public class SessaoController {
     @PostMapping("/sessoes")
     public ResponseEntity<Sessao> salvarSessao(@RequestBody @Valid  Sessao sessao) throws Exception {
 
-            sessao = sessaoService.salvarSessao(sessao);
-            return new  ResponseEntity<Sessao>(sessao, HttpStatus.OK);
+        sessao = sessaoService.salvarSessao(sessao);
+        return new  ResponseEntity<Sessao>(sessao, HttpStatus.OK);
    }
 
     @GetMapping("/sessoes")

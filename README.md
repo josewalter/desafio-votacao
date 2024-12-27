@@ -121,8 +121,6 @@ Estou sando o Spring boot versão 3.4.0
 MySQL 8.0 e estou usando o DBeaver para interagir com os dados do banco não estou usando Docker.
 As configurações estão dentro do Application.properties
 A IDE que estou usando é o Intellij.
-Tive alguns bugs na pordução da API com a classe de Validação de CPF e isso me atrasou muito e ainda 
-não consegui resolver estes problemas, está salvando o CPF no banco está gerando a sessão mais ainda
-não está fazendo a validação do cpf se me derem até sexta feira eu entrego com a validação de CPF e 
-tempo que a sessão ficará online. 
+Tive alguns bugs na pordução da API com a classe de Validação de CPF e isso me atrasou muito, mais
+agora está funcionando só está faltando a regra de tempo que a sessão ficará online. 
  
