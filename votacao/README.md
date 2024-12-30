@@ -161,15 +161,17 @@ para subir a imagem e manter a imagem no ar: docker container run -p 8080:8080 v
 Comando para subir a imagem e encerrar: docker container run --rm -p 8080:8080 votacao-projeto-reserva
 
 # 7°.3 passos para subir os containers na network
-Comando para fazer o build da aplicação back-end docker image build -t votacao-projeto-reserva .
+Comando para fazer o build da imagem da API:
+docker image build -t votacao .
 
-Comando para subir o container do MySQL:
-docker container run -d -p 3307:3307 -e MYSQL_ROOT_PASSWORD=12345 --network votacao-projeto-reserva-network --name
-votacao-projeto-reserva-mysql mysql:8.0
+Comando para fazer a imagem subir:
+docker container run --rm -p 8080:8080 votacao
+
+Comando para subir o container do MySQL para dentro da rede:
+docker  container run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=12345 --network votacao-network  --name votacao-mysql  mysql:8.0
 
 Comando para subir a aplicação back-end:
-docker container run -d -p 8080:8080 -e DB_HOST=votacao-projeto-reserva-mysql --network votacao-projeto-reserva-network
-votacao-projeto-reserva
+docker container run -d -p 8080:8080 -e DB_HOST=votacao-projeto-reserva-mysql --network votacao-network votacao
 
 
 
