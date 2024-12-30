@@ -6,7 +6,8 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.UUID;
 
-@Data
+@Setter
+@Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

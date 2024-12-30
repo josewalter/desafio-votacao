@@ -29,6 +29,8 @@ public class ClienteController {
            // throw new Exception("CPF: " + cliente.getCpf() + "status: ABLE_TO_VOTE" );
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(" status: UNABLE_TO_VOTE ");
        }
+
+       // return ResponseEntity.status(HttpStatus.OK).body(clienteService.salvarCliente(cliente));
     }
 
     @GetMapping("/clientes")
