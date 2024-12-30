@@ -25,7 +25,7 @@ public class Sessao implements Serializable {
     private String voto;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    //@JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
 }
