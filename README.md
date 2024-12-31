@@ -171,5 +171,5 @@ Comando para subir o container do MySQL para dentro da rede:
 docker  container run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=12345 --network votacao-network  --name votacao-mysql  mysql:8.0
 
 Comando para subir a aplicação back-end dentro da rede:
-docker container run -d -p 8080:8080 -e DB_HOST=votacao-mysql --network votacao-network votacao
+docker container run  -d -p 8080:8080 -e DB_HOST=votacao-mysql --network votacao-network  votacao
  
