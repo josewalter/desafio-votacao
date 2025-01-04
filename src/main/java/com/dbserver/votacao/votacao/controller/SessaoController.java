@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping
+@CrossOrigin(origins = "http://localhost:4200")
 public class SessaoController {
     @Autowired
     private SessaoService sessaoService;
