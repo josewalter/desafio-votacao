@@ -24,10 +24,8 @@ public class ClienteController {
 
        if (ValidacaoCpf.isCPF(cliente.getCpf())) {
            cliente = clienteService.salvarCliente(cliente);
-           //throw new Exception("CPF: " + cliente.getCpf() + "status: ABLE_TO_VOTE" );
            return ResponseEntity.status(HttpStatus.OK).body("CPF: " + cliente.getCpf() + " status: ABLE_TO_VOTE" );
        }else {
-           // throw new Exception("CPF: " + cliente.getCpf() + "status: ABLE_TO_VOTE" );
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(" status: UNABLE_TO_VOTE ");
        }
     }

@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +22,11 @@ public class SessaoController {
     @PostMapping("/sessoes")
     public ResponseEntity<Sessao> salvarSessao(@RequestBody @Valid  Sessao sessao) throws Exception {
 
-        sessao = sessaoService.salvarSessao(sessao);
-        return new  ResponseEntity<Sessao>(sessao, HttpStatus.OK);
+        Sessao sessaoSalva = sessaoService.salvarSessao(sessao);
+        return new ResponseEntity<>(sessaoSalva, HttpStatus.OK);
+
+        
+
    }
 
     @GetMapping("/sessoes")

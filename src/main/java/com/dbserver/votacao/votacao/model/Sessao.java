@@ -21,6 +21,9 @@ public class Sessao implements Serializable {
     @Column(name = "sessao_id")
     private UUID idSessao;
 
+    @Column(name = "registro_pauta", length = 30, nullable = false)
+    private String registroPauta;
+
     @Column(name = "voto", length = 4, nullable = false)
     private String voto;
 
