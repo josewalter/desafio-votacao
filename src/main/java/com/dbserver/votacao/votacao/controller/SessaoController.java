@@ -25,7 +25,7 @@ public class SessaoController {
         Sessao sessaoSalva = sessaoService.salvarSessao(sessao);
         return new ResponseEntity<>(sessaoSalva, HttpStatus.OK);
 
-        
+
 
    }
 
