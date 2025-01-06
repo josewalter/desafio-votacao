@@ -161,27 +161,28 @@ para subir a imagem e manter a imagem no ar: docker container run -p 8080:8080 v
 Comando para subir a imagem e encerrar: docker container run --rm -p 8080:8080 votacao-projeto-reserva
 
 # 7°.3 passos para subir os containers na network
-Comando para fazer o build da imagem da API:
-docker build -t desafio-votacao/desafio-votacao-josewalter:v1 .
+Comando para fazer o build da imagem:
+Rodar esse comando dentro da pasta do projeto para que ele faça a atualização do jar do projeto:
+(./mvnw clean package)
+Depois roda o comando do Docker para jerar o build:
+docker image build -t desafio-votacao .
 
-Comando para fazer a imagem subir:
-docker container run --rm -p 8080:8080 desafio-votacao/desafio-votacao-josewalter:v1
+Comando para subir a imagem da API:
+docker container run --rm -p 8080:8080 desafio-votacao
+Nome da imagem desafio-votacao
 
-Comando para criar a rede onde os containers irão ficar e se comunicar.
+Comando para iniciar o container do MySQL:
+docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=12345 --name desafio-votacao-mysql mysql:8.0
+
+Comando para criar a network para acolocar os container criados:
 docker network create desafio-votacao-network
 
-Comando para criar o volume para a aplicação.
-docker volume create desafio-votacao-volume
+Comando para adicionar o container do MySQL dentro da rede:
+docker container run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=12345 --network desafio-votacao-network  --name desafio-votacao-mysql mysql:8.0
+Nome da rede desafio-votacao-network
 
-Comando para criar o container do MySQL e subir dentro da rede.
-docker container run -d -p 3306:3306 --name desafio_votacao_db -e MYSQL_USER=root 
--e MYSQL_DATABASE=desafiovotacaoDb --network desafio-votacao-network --mount
-type=volume,source=desafio-votacao-volume,target=/var/lib/mysql/data mysql:8.0
-
-Comando para subir a aplicação back-end dentro da rede:
-docker container run  -d -p 8080:8080 -e MYSQL_DATABASE=desafiovotacaoDb -e MYSQL_USER=root
-MYSQL_PASSWORD=12345 -e DB_HOST= desafio_votacao_db --network desafio-votacao-network  
-desafio-votacao/votacao:v1
+Comando para adicionar o container da API dentro da rede:
+docker container run --rm  -p 8080:8080 -e DB_HOST=desafio-votacao-mysql  --network desafio-votacao-network desafio-votacao
 
 # 7°.4 local onde está o Front-End do projeto e todas as regras para rodar o Front-End
 https://github.com/josewalter/desafio-votacao-front-end-angular
