@@ -119,7 +119,7 @@ O aplicativo envia uma requisição POST para a url informada e com o body defin
 # regras para rodar o teste
 # INSTRUÇÕES DA API DE VOTAÇÃO
 # 1° passo
-OBS: Para rodar a API localmente, faça um clone do projeto, instale o MySQL na sua maquina ou crie um 
+OBS: Para rodar a API localmente, faça um clone do projeto, instale o MySQL na sua maquina ou crie um
 container Docker das duas formas funciona adicione as regras de usuário senha e as siga as intruções de
 instalação do MySQL na sua máquina que vc pode ver em qualquer tutorial no youtube ou na documentação da
 Oracle.
@@ -128,11 +128,11 @@ Oracle.
 Criar a base de dados no MySQL. VERSÃO DO MySQL:8.0.39
 
 # 3° passo rodar o projeto na sua máquina.
-Feito isso é só subir o projeto na tua máquina, usando o STS, Eclipse ou Intellij qualquer uma dessas 
+Feito isso é só subir o projeto na tua máquina, usando o STS, Eclipse ou Intellij qualquer uma dessas
 interfaces vai funcionar ou IDE de sua preferência.
 
 # 4° passo framework do projeto
-O Spring Boot 3.4.0 é a versão que eu uso no momento para gerar o projeto e vai gerar as tabelas e 
+O Spring Boot 3.4.0 é a versão que eu uso no momento para gerar o projeto e vai gerar as tabelas e
 adcionar os dados já existentes se tiverem ou criar novos dados.
 
 # 5° passo fazer o build do projeto
@@ -146,34 +146,43 @@ POST http://localhost:8080/sessoes  GET http://localhost:8080/sessoes
 # 7° passo comando para rodar o docker
 docker-compose -f mysql-docker-compose.yml up -d OBS: rodei na porta:3307, porque na minha máquina,
 eu tenho o MySQL instalado e ele usa a porta 3306 se vc não tiver o MySQL instalado na sua máquina vc
-pode rodar o container na porta 3306. E a porta para rodar o container é: http://localhost:8000/ 
+pode rodar o container na porta 3306. E a porta para rodar o container é: http://localhost:8000/
 Usuário: root Senha:12345
 
 # 7°.1 passo configurando o properties
-Fazer a configuração no properties para que a aplicação se conecte com o container e vc possa estar 
-usando o banco de dados em container, não vou colocar o passo a passo porque essas configurações são 
-basicas então acredito que vcs consigam fazer sem as instruços. Pode ser usado a interface: PhpAdmin, 
+Fazer a configuração no properties para que a aplicação se conecte com o container e vc possa estar
+usando o banco de dados em container, não vou colocar o passo a passo porque essas configurações são
+basicas então acredito que vcs consigam fazer sem as instruços. Pode ser usado a interface: PhpAdmin,
 DBeaver, Workbenck, HeidSQL e etc...
 
 # 7°.2 passo Criando a imagem docker da api
 Comando para gerar o build da imagem dokcerfile: docker image build -t votacao-projeto-reserva . Comando
-para subir a imagem e manter a imagem no ar: docker container run -p 8080:8080 votacao-projeto-reserva 
+para subir a imagem e manter a imagem no ar: docker container run -p 8080:8080 votacao-projeto-reserva
 Comando para subir a imagem e encerrar: docker container run --rm -p 8080:8080 votacao-projeto-reserva
 
 # 7°.3 passos para subir os containers na network
 Comando para fazer o build da imagem da API:
-docker image build -t votacao .
+docker build -t desafio-votacao/desafio-votacao-josewalter:v1 .
 
 Comando para fazer a imagem subir:
-docker container run --rm -p 8080:8080 votacao
+docker container run --rm -p 8080:8080 desafio-votacao/desafio-votacao-josewalter:v1
 
-Comando para subir o container do MySQL para dentro da rede:
-docker  container run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=12345 --network votacao-network  --name votacao-mysql  mysql:8.0
+Comando para criar a rede onde os containers irão ficar e se comunicar.
+docker network create desafio-votacao-network
 
-Comando para subir a aplicação back-end:
-docker container run -d -p 8080:8080 -e DB_HOST=votacao-projeto-reserva-mysql --network votacao-network votacao
+Comando para criar o volume para a aplicação.
+docker volume create desafio-votacao-volume
 
+Comando para criar o container do MySQL e subir dentro da rede.
+docker container run -d -p 3306:3306 --name desafio_votacao_db -e MYSQL_USER=root 
+-e MYSQL_DATABASE=desafiovotacaoDb --network desafio-votacao-network --mount
+type=volume,source=desafio-votacao-volume,target=/var/lib/mysql/data mysql:8.0
 
+Comando para subir a aplicação back-end dentro da rede:
+docker container run  -d -p 8080:8080 -e MYSQL_DATABASE=desafiovotacaoDb -e MYSQL_USER=root
+MYSQL_PASSWORD=12345 -e DB_HOST= desafio_votacao_db --network desafio-votacao-network  
+desafio-votacao/votacao:v1
 
-
+# 7°.4 local onde está o Front-End do projeto e todas as regras para rodar o Front-End
+https://github.com/josewalter/desafio-votacao-front-end-angular
  
